@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Cadastro</title>
+    <style>
+        body, html{
+            text-align: left;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #eaf4fc;
+            margin: 0;
+            padding: 0;
+            flex-direction: row;
+            min-height: 100vh;
+        }
+
+        header{
+            text-align: left;
+            background-color: #3b82f6;
+            width: 100%;
+            padding: 2%;
+            box-sizing: border-box;
+            color: #ffffff;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            padding: 2%;
+
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #eaf4fc;
+            font-family: Arial, sans-serif;
+        }
+
+        .cadastro-box, .lista-box {
+            background-color: #9b9a9a;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        input {
+            padding: 8px;
+            width: 80%;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            margin-top: 15px;
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #1d4ed8;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #3b82f6;
+            color: white;
+        }
+
+
+        input{
+            border: none;
+            padding: 2% 10%;
+        }
+
+        footer{
+            text-align: center;
+            background-color: #1e293b;
+            color: white;
+            width: 100%;
+            padding-top: 5%;
+            padding-bottom: 5%;
+        }
+
+        a{
+            text-decoration: none;
+            color: #ddd;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h2>Bem vindo ao Sistema</h2>
+        <h4>Abaixo segue as informações dos usuários já cadastrados</h4>
+        <a href="{{url_for('logout')}}">Sair</a>
+    </header>
+    <main>
+    <div class="container">
+  <!-- Bloco de Cadastro -->
+  <div class="cadastro-box">
+    <h2>Cadastrar novo cliente</h2>
+    <form method="POST">
+      <label>Nome:</label>
+      <input type="text" name="nome" required><br>
+      
+      <label>CPF:</label>
+      <input type="text" name="cpf" maxlength="11" required><br>
+      
+      <label>E-mail:</label>
+      <input type="email" name="email" required><br>
+      
+      <button type="submit">Cadastrar</button>
+    </form>
+  </div>
+
+  <!-- Bloco de Listagem -->
+  <div class="lista-box">
+    <h2>Lista de clientes já cadastrados</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>CPF</th>
+          <th>E-mail</th>
+          <th>Ação</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for cliente in clientes %}
+        <tr>
+          <td>{{ cliente[0] }}</td>
+          <td>{{ cliente[1] }}</td>
+          <td>{{ cliente[2] }}</td>
+          <td>{{ cliente[3] }}</td>
+          <td><a href="/excluir/{{ cliente[0] }}">Excluir</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+    </main>
+    <footer>
+        <p>Desenvolvido por Vinícius Duarte</p>
+    </footer>
+</body>
+</html>
